@@ -46,6 +46,8 @@
 - given S型locker,无效的小票 when S型locker取包 then 取包失败,提示错误的小票
 - given S型locker,用过的小票 when S型locker取包 then 取包失败,提示用过的小票
 
+- given PrimaryLockerRobot,未存满的L型locker when 配置PrimaryLockerRobot then 配置失败,提示Locker类型不匹配
+- given PrimaryLockerRobot,未存满的M型locker when 配置PrimaryLockerRobot then 配置成功
 - given PrimaryLockerRobot管理1个未存满的M型locker,需要存的M号包 when PrimaryLockerRobot存包 then 存包成功,返回小票
 - given PrimaryLockerRobot管理2个未存满的M型locker,需要存的M号包 when PrimaryLockerRobot存包 then 存包成功,返回小票
 - given PrimaryLockerRobot管理2个未存满的M型locker,需要存的L号的包 when PrimaryLockerRobot存包 then 存包失败,提示包型号错误

@@ -1,5 +1,7 @@
 package com.wentjiang.tddexam;
 
+import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
+
 import java.util.List;
 
 public class PrimaryLockerRobot {
@@ -11,6 +13,9 @@ public class PrimaryLockerRobot {
     }
 
     public Ticket storeBag(Bag bag) {
+        if (bag.getBagType() != BagType.M) {
+            throw new BagTypeNotMatchException();
+        }
         return new Ticket();
     }
 }
