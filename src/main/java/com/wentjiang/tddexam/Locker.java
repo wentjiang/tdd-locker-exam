@@ -1,10 +1,16 @@
 package com.wentjiang.tddexam;
 
 
+import com.wentjiang.tddexam.exception.CapacityFullException;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Locker {
 
-    private BagType storeBagType;
-    private int capacity;
+    private final BagType storeBagType;
+    private final int capacity;
+    private final Map<Ticket, Bag> ticketBagMap = new HashMap<>();
 
     public Locker(BagType storeBagType, int capacity) {
         this.storeBagType = storeBagType;
@@ -12,6 +18,11 @@ public class Locker {
     }
 
     public Ticket storeBag(Bag bag) {
-        return new Ticket();
+        Ticket ticket = new Ticket();
+        if (ticketBagMap.size() >= capacity) {
+            throw new CapacityFullException();
+        }
+        ticketBagMap.put(ticket, bag);
+        return ticket;
     }
 }
