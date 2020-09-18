@@ -1,5 +1,6 @@
 package com.wentjiang.tddexam;
 
+import com.wentjiang.tddexam.exception.BadTicketException;
 import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
 import com.wentjiang.tddexam.exception.CapacityFullException;
 import org.junit.Test;
@@ -32,6 +33,14 @@ public class LockerTest {
         Bag bag = new Bag(BagType.S);
         Ticket ticket = locker.storeBag(bag);
         Assertions.assertEquals(bag, locker.takeOutBag(ticket));
+    }
+
+    @Test
+    public void should_take_out_bag_fail_remind_bad_ticket_when_take_out_bag_given_s_locker_bad_ticket() {
+        Locker locker = LockerTestUtil.getLocker(10, 5, BagType.S);
+        Ticket validTicket = locker.storeBag(new Bag(BagType.S));
+        Ticket badTicket = new Ticket();
+        Assertions.assertThrows(BadTicketException.class, () -> locker.takeOutBag(badTicket));
     }
 
 }

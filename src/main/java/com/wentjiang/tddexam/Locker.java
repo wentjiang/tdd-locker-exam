@@ -1,6 +1,7 @@
 package com.wentjiang.tddexam;
 
 
+import com.wentjiang.tddexam.exception.BadTicketException;
 import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
 import com.wentjiang.tddexam.exception.CapacityFullException;
 
@@ -31,6 +32,9 @@ public class Locker {
     }
 
     public Bag takeOutBag(Ticket ticket) {
+        if (ticketBagMap.get(ticket) == null){
+            throw new BadTicketException();
+        }
         return ticketBagMap.get(ticket);
     }
 }
