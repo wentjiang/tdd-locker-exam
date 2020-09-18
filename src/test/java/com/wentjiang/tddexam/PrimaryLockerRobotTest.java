@@ -15,4 +15,13 @@ public class PrimaryLockerRobotTest {
         Assertions.assertNotNull(ticket);
     }
 
+    @Test
+    public void should_store_bag_success_when_PrimaryLockerRobot_store_bag_given_PrimaryLockerRobot_manager_two_m_lockers_and_m_bag(){
+        Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
+        Locker secondLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker,secondLocker));
+        Ticket ticket = primaryLockerRobot.storeBag(new Bag(BagType.M));
+        Assertions.assertNotNull(ticket);
+    }
+
 }
