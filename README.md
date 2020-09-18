@@ -36,10 +36,51 @@
 8. 小樱代理用户取完包后，会回收票据吗？
     >小樱会回收，但她自己取包的时候难免也有犯糊涂的时候。
 
+# tasking
+
+- given 有可用容量的S型locker,需要存的包 when S型locker存包 then 存包成功,返回小票
+- given 没有可用容量的S型locker,需要存的包 when S型locker存包 then 存包失败,提示容量已满
+
+- given S型locker,有效的小票 when S型locker取包 then 取包成功
+- given S型locker,无效的小票 when S型locker取包 then 取包失败,提示错误的小票
+- given S型locker,用过的小票 when S型locker取包 then 取包失败,提示用过的小票
+
+- given PrimaryLockerRobot管理1个未存满的M型locker,需要存的M号包 when PrimaryLockerRobot存包 then 存包成功,返回小票
+- given PrimaryLockerRobot管理2个未存满的M型locker,需要存的M号包 when PrimaryLockerRobot存包 then 返回小票,成功存包到第一个locker中
+- given PrimaryLockerRobot管理2个未存满的M型locker,需要存的L号的包 when PrimaryLockerRobot存包 then 存包失败,提示包型号错误
+- given PrimaryLockerRobot管理1个未存满的M型locker,需要存的M号的包 when M型locker存包 then 存包失败,提示拒绝服务
+
+- given PrimaryLockerRobot管理2个M型locker,有效的小票 when PrimaryLockerRobot取包 then 取包成功
+- given PrimaryLockerRobot管理2个M型locker,无效的小票 when PrimaryLockerRobot取包 then 取包失败,提示无效的小票
+- given PrimaryLockerRobot管理2个M型locker,用过的小票 when PrimaryLockerRobot取包 then 取包失败,提示用过的小票
+- given PrimaryLockerRobot管理2个M型locker,S型locker的小票 when PrimaryLockerRobot取包 then 取包失败,提示票类型错误
+- given PrimaryLockerRobot管理2个M型locker,有效的小票 when M型locker取包 then 取包失败,提示拒绝服务
+
+- given SuperLockerRobot管理1个未存满的L型locker,需要存的L号包 when SuperLockerRobot存包 then 存包成功,返回小票
+- given SuperLockerRobot管理2个未存满的L型locker,第一个locker容量和可用容量分别为10,5,第二个locker容量和可用容量分别为10,3 when SuperLockerRobot存包 then 返回小票,存包到第二个locker
+- given SuperLockerRobot管理2个为存满的L型的locker,需要存M号包 when SuperLockerRobot存包 then 存包失败,提示包型号错误
+- given SuperLockerRobot管理1个未存满的L型locker,需要存的L号包 when L型locker存包 then 存包失败,提示拒绝服务
+
+- given SuperLockerRobot管理2个未存满的L型locker,有效的小票 when SuperLockerRobot取包 then 取包成功
+- given SuperLockerRobot管理2个未存满的L型locker,用过的小票 when SuperLockerRobot取包 then 取包失败,提示用过的小票
+- given SuperLockerRobot管理2个未存满的L型locker,无效的小票 when SuperLockerRobot取包 then 取包失败,提示无效的小票
+- given SuperLockerRobot管理2个未存满的L型locker,有效的小票 when L型locker取包 then 取包失败,提示拒绝服务
 
 
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,需要存的S型的包 when LockerRobotManager存包 then 存包成功,返回小票
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,需要存的M型的包 when LockerRobotManager存包 then 存包成功,返回小票
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,需要存的L型的包 when LockerRobotManager存包 then 存包成功,返回小票
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,需要存的L型的包 when S型locker存包 then 存包失败,提示拒绝服务
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,需要存的L型的包 when PrimaryLockerRobot存包 then 存包失败,提示拒绝服务
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,需要存的L型的包 when SuperLockerRobot存包 then 存包失败,提示拒绝服务
 
 
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,有效的S型的票据 when LockerRobotManager取包 then 取包成功
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,有效的M型的票据 when LockerRobotManager取包 then 取包成功
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,有效的L型的票据 when LockerRobotManager取包 then 取包成功
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,无效的L型的票据 when LockerRobotManager取包 then 取包失败,提示无效的小票
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,用过的L型的票据 when LockerRobotManager取包 then 取包失败,提示用过的小票
+- LockerRobotManager管理一个S型locker,一个PrimaryLockerRobot管理一个locker,一个SuperLockerRobot管理一个locker,有效的S型的票据 when S型locker取包 then 取包失败,提示拒绝服务
 
 
  
