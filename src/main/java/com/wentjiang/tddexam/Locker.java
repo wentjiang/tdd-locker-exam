@@ -45,4 +45,8 @@ public class Locker {
         usedTicketSet.add(ticket);
         return ticketBagMap.get(ticket);
     }
+
+    public BagType getStoreBagType() {
+        return storeBagType;
+    }
 }
