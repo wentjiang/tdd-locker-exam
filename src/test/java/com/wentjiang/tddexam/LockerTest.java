@@ -25,4 +25,13 @@ public class LockerTest {
         Locker locker = LockerTestUtil.getLocker(10, 10, BagType.S);
         Assertions.assertThrows(CapacityFullException.class, () -> locker.storeBag(new Bag(BagType.S)));
     }
+
+    @Test
+    public void should_take_out_bag_success_when_take_out_bag_given_s_locker_valid_ticket() {
+        Locker locker = LockerTestUtil.getLocker(10, 5, BagType.S);
+        Bag bag = new Bag(BagType.S);
+        Ticket ticket = locker.storeBag(bag);
+        Assertions.assertEquals(bag, locker.takeOutBag(ticket));
+    }
+
 }

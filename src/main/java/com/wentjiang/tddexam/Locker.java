@@ -19,7 +19,7 @@ public class Locker {
     }
 
     public Ticket storeBag(Bag bag) {
-        if (bag.getBagType() != this.storeBagType){
+        if (bag.getBagType() != this.storeBagType) {
             throw new BagTypeNotMatchException();
         }
         if (ticketBagMap.size() >= capacity) {
@@ -28,5 +28,9 @@ public class Locker {
         Ticket ticket = new Ticket();
         ticketBagMap.put(ticket, bag);
         return ticket;
+    }
+
+    public Bag takeOutBag(Ticket ticket) {
+        return ticketBagMap.get(ticket);
     }
 }
