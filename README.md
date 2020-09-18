@@ -38,8 +38,9 @@
 
 # tasking
 
-- given 有可用容量的S型locker,需要存的包 when S型locker存包 then 存包成功,返回小票
-- given 没有可用容量的S型locker,需要存的包 when S型locker存包 then 存包失败,提示容量已满
+- given 有可用容量的S型locker,需要存的S型的包 when S型locker存包 then 存包成功,返回小票
+- given 有可用容量的S型locker,需要存的M型的包 when S型locker存包 then 存包失败,提示包类型错误
+- given 没有可用容量的S型locker,需要存S型的包 when S型locker存包 then 存包失败,提示容量已满
 
 - given S型locker,有效的小票 when S型locker取包 then 取包成功
 - given S型locker,无效的小票 when S型locker取包 then 取包失败,提示错误的小票

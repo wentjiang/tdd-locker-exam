@@ -1,6 +1,7 @@
 package com.wentjiang.tddexam;
 
 
+import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
 import com.wentjiang.tddexam.exception.CapacityFullException;
 
 import java.util.HashMap;
@@ -18,10 +19,13 @@ public class Locker {
     }
 
     public Ticket storeBag(Bag bag) {
-        Ticket ticket = new Ticket();
+        if (bag.getBagType() != this.storeBagType){
+            throw new BagTypeNotMatchException();
+        }
         if (ticketBagMap.size() >= capacity) {
             throw new CapacityFullException();
         }
+        Ticket ticket = new Ticket();
         ticketBagMap.put(ticket, bag);
         return ticket;
     }
