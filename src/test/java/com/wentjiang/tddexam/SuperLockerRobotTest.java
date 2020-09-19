@@ -1,6 +1,7 @@
 package com.wentjiang.tddexam;
 
 import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
+import com.wentjiang.tddexam.exception.CapacityFullException;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -34,5 +35,10 @@ public class SuperLockerRobotTest {
         Assertions.assertThrows(BagTypeNotMatchException.class, () -> superLockerRobot.storeBag(new Bag(BagType.S)));
     }
 
+    @Test
+    public void should_store_bag_fail_capacity_full_when_store_bag_given_SuperLockerRobot_manager_1_full_L_locker() {
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Collections.singletonList(LockerTestUtil.getLocker(10, 10, BagType.L)));
+        Assertions.assertThrows(CapacityFullException.class, () -> superLockerRobot.storeBag(new Bag(BagType.L)));
+    }
 
 }
