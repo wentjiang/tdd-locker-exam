@@ -1,7 +1,9 @@
 package com.wentjiang.tddexam;
 
+import com.wentjiang.tddexam.exception.BadTicketException;
 import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
 import com.wentjiang.tddexam.exception.CapacityFullException;
+import com.wentjiang.tddexam.exception.TicketUsedException;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -42,17 +44,34 @@ public class SuperLockerRobotTest {
     }
 
     @Test
-    public void should_take_out_success_when_take_out_given_superLockerRobot_manager_two_not_full_locker(){
+    public void should_take_out_success_when_take_out_given_superLockerRobot_manager_two_not_full_locker() {
         Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.L);
         Locker secondLocker = LockerTestUtil.getLocker(10, 3, BagType.L);
         SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
         Bag bag = new Bag(BagType.L);
         Ticket ticket = superLockerRobot.storeBag(bag);
-        Assertions.assertEquals(bag,superLockerRobot.takeOutBag(ticket));
+        Assertions.assertEquals(bag, superLockerRobot.takeOutBag(ticket));
     }
 
-//    - given SuperLockerRobot管理2个未存满的L型locker,有效的小票 when SuperLockerRobot取包 then 取包成功
-//- given SuperLockerRobot管理2个未存满的L型locker,用过的小票 when SuperLockerRobot取包 then 取包失败,提示用过的小票
+    @Test
+    public void should_take_out_fail_remind_used_ticket_when_take_out_given_superLockerRobot_manager_two_not_full_locker() {
+        Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.L);
+        Locker secondLocker = LockerTestUtil.getLocker(10, 3, BagType.L);
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Ticket ticket = superLockerRobot.storeBag(new Bag(BagType.L));
+        superLockerRobot.takeOutBag(ticket);
+        Assertions.assertThrows(TicketUsedException.class, () -> superLockerRobot.takeOutBag(ticket));
+    }
+
+    @Test
+    public void should_take_out_fail_remind_bad_ticket_when_take_out_given_superLockerRobot_manager_two_not_full_locker() {
+        Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.L);
+        Locker secondLocker = LockerTestUtil.getLocker(10, 3, BagType.L);
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Ticket ticket = superLockerRobot.storeBag(new Bag(BagType.L));
+        Ticket badTicket = new Ticket(BagType.L);
+        Assertions.assertThrows(BadTicketException.class, () -> superLockerRobot.takeOutBag(badTicket));
+    }
 //- given SuperLockerRobot管理2个未存满的L型locker,无效的小票 when SuperLockerRobot取包 then 取包失败,提示无效的小票
 
 }
