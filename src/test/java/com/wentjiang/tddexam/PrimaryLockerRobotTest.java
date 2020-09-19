@@ -34,8 +34,10 @@ public class PrimaryLockerRobotTest {
         Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
         Locker secondLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
-        Ticket ticket = primaryLockerRobot.storeBag(new Bag(BagType.M));
+        Bag bag = new Bag(BagType.M);
+        Ticket ticket = primaryLockerRobot.storeBag(bag);
         Assertions.assertNotNull(ticket);
+        Assertions.assertEquals(bag, firstLocker.takeOutBag(ticket));
     }
 
     @Test
@@ -46,5 +48,14 @@ public class PrimaryLockerRobotTest {
         Assertions.assertThrows(BagTypeNotMatchException.class, () -> primaryLockerRobot.storeBag(new Bag(BagType.L)));
     }
 
+    @Test
+    public void should_take_out_bag_success_when_take_out_bag_given_PrimaryLockerRobot_manager_two_M_locker_valid_ticket() {
+        Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
+        Locker secondLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Bag bag = new Bag(BagType.M);
+        Ticket ticket = primaryLockerRobot.storeBag(bag);
+        Assertions.assertEquals(bag, primaryLockerRobot.takeOutBag(ticket));
+    }
 
 }

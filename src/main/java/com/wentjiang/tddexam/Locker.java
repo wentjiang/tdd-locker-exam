@@ -36,10 +36,10 @@ public class Locker {
     }
 
     public Bag takeOutBag(Ticket ticket) {
-        if (usedTicketSet.contains(ticket)){
+        if (usedTicketSet.contains(ticket)) {
             throw new TicketUsedException();
         }
-        if (ticketBagMap.get(ticket) == null){
+        if (ticketBagMap.get(ticket) == null) {
             throw new BadTicketException();
         }
         usedTicketSet.add(ticket);
@@ -48,5 +48,9 @@ public class Locker {
 
     public BagType getStoreBagType() {
         return storeBagType;
+    }
+
+    public boolean isNotFull() {
+        return capacity > ticketBagMap.size();
     }
 }

@@ -1,9 +1,12 @@
 package com.wentjiang.tddexam;
 
+import com.wentjiang.tddexam.exception.BadTicketException;
 import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
+import com.wentjiang.tddexam.exception.CapacityFullException;
 import com.wentjiang.tddexam.exception.LockerTypeNotMatchException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PrimaryLockerRobot {
 
@@ -20,6 +23,20 @@ public class PrimaryLockerRobot {
         if (bag.getBagType() != BagType.M) {
             throw new BagTypeNotMatchException();
         }
-        return new Ticket();
+        Optional<Locker> locker = lockers.stream().filter(Locker::isNotFull).findFirst();
+        if (!locker.isPresent()) {
+            throw new CapacityFullException();
+        }
+        return locker.get().storeBag(bag);
+    }
+
+    public Bag takeOutBag(Ticket ticket) {
+        for (Locker locker : lockers) {
+            try {
+                return locker.takeOutBag(ticket);
+            } catch (BadTicketException ignored) {
+            }
+        }
+        throw new BadTicketException();
     }
 }
