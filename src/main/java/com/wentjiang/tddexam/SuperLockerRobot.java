@@ -1,6 +1,8 @@
 package com.wentjiang.tddexam;
 
+import com.wentjiang.tddexam.exception.BadTicketException;
 import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
+import com.wentjiang.tddexam.exception.CapacityFullException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,10 +17,20 @@ public class SuperLockerRobot {
     }
 
     public Ticket storeBag(Bag bag) {
-        if (bag.getBagType() != BagType.L){
+        if (bag.getBagType() != BagType.L) {
             throw new BagTypeNotMatchException();
         }
         Optional<Locker> minUsedLocker = lockers.stream().min(Comparator.comparingDouble(locker -> ((double) locker.getUsedCapacity() / (double) locker.getCapacity())));
         return minUsedLocker.get().storeBag(bag);
+    }
+
+    public Bag takeOutBag(Ticket ticket) {
+        for (Locker locker : lockers) {
+            try {
+                return locker.takeOutBag(ticket);
+            } catch (BadTicketException ignored) {
+            }
+        }
+        throw new BadTicketException();
     }
 }
