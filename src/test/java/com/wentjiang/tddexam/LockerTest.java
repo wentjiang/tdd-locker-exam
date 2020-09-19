@@ -40,7 +40,7 @@ public class LockerTest {
     public void should_take_out_bag_fail_remind_bad_ticket_when_take_out_bag_given_s_locker_bad_ticket() {
         Locker locker = LockerTestUtil.getLocker(10, 5, BagType.S);
         Ticket validTicket = locker.storeBag(new Bag(BagType.S));
-        Ticket badTicket = new Ticket();
+        Ticket badTicket = new Ticket(BagType.S);
         Assertions.assertThrows(BadTicketException.class, () -> locker.takeOutBag(badTicket));
     }
 

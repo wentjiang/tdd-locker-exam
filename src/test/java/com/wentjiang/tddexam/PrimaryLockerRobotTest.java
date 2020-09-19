@@ -1,9 +1,6 @@
 package com.wentjiang.tddexam;
 
-import com.wentjiang.tddexam.exception.BadTicketException;
-import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
-import com.wentjiang.tddexam.exception.LockerTypeNotMatchException;
-import com.wentjiang.tddexam.exception.TicketUsedException;
+import com.wentjiang.tddexam.exception.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -67,7 +64,7 @@ public class PrimaryLockerRobotTest {
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
         Bag bag = new Bag(BagType.M);
         Ticket ticket = primaryLockerRobot.storeBag(bag);
-        Ticket badTicket = new Ticket();
+        Ticket badTicket = new Ticket(BagType.M);
         Assertions.assertThrows(BadTicketException.class, () -> primaryLockerRobot.takeOutBag(badTicket));
     }
 
@@ -81,6 +78,15 @@ public class PrimaryLockerRobotTest {
         primaryLockerRobot.takeOutBag(ticket);
         Assertions.assertThrows(TicketUsedException.class, () -> primaryLockerRobot.takeOutBag(ticket));
     }
+
+    @Test
+    public void should_take_out_fail_remind_ticket_type_error_when_take_out_bag_given_PrimaryLockerRobot_manager_two_M_locker_S_ticket() {
+        Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
+        Locker secondLocker = LockerTestUtil.getLocker(10, 5, BagType.M);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Assertions.assertThrows(TicketTypeNotMatchException.class, () -> primaryLockerRobot.takeOutBag(new Ticket(BagType.S)));
+    }
+
 
 
 }

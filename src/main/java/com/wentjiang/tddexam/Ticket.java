@@ -6,9 +6,15 @@ import java.util.UUID;
 public class Ticket {
 
     private final String id;
+    private final BagType bagType;
 
-    public Ticket() {
+    public Ticket(BagType bagType) {
+        this.bagType = bagType;
         id = UUID.randomUUID().toString();
+    }
+
+    public BagType getBagType() {
+        return bagType;
     }
 
     @Override

@@ -1,10 +1,7 @@
 package com.wentjiang.tddexam;
 
 
-import com.wentjiang.tddexam.exception.BadTicketException;
-import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
-import com.wentjiang.tddexam.exception.CapacityFullException;
-import com.wentjiang.tddexam.exception.TicketUsedException;
+import com.wentjiang.tddexam.exception.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,12 +27,15 @@ public class Locker {
         if (ticketBagMap.size() >= capacity) {
             throw new CapacityFullException();
         }
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(storeBagType);
         ticketBagMap.put(ticket, bag);
         return ticket;
     }
 
     public Bag takeOutBag(Ticket ticket) {
+        if (ticket.getBagType() != storeBagType) {
+            throw new TicketTypeNotMatchException();
+        }
         if (usedTicketSet.contains(ticket)) {
             throw new TicketUsedException();
         }
