@@ -87,4 +87,10 @@ public class PrimaryLockerRobotTest {
         Assertions.assertThrows(TicketTypeNotMatchException.class, () -> primaryLockerRobot.takeOutBag(new Ticket(BagType.S)));
     }
 
+    @Test
+    public void should_store_bag_fail_remind_capacity_full_when_store_bag_given_PrimaryLockerRobot_manager_one_full_M_locker() {
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(Collections.singletonList(LockerTestUtil.getLocker(10, 10, BagType.M)));
+        Assertions.assertThrows(CapacityFullException.class, () -> primaryLockerRobot.storeBag(new Bag(BagType.M)));
+    }
+
 }
