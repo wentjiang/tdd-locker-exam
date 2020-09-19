@@ -53,4 +53,12 @@ public class Locker {
     public boolean isNotFull() {
         return capacity > ticketBagMap.size();
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getUsedCapacity(){
+        return ticketBagMap.size();
+    }
 }
