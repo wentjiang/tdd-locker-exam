@@ -60,6 +60,7 @@
 - given SuperLockerRobot管理1个未存满的L型locker,需要存的L号包 when SuperLockerRobot存包 then 存包成功,返回小票
 - given SuperLockerRobot管理2个未存满的L型locker,第一个locker容量和可用容量分别为10,5,第二个locker容量和可用容量分别为10,3 when SuperLockerRobot存包 then 返回小票,存包到第二个locker
 - given SuperLockerRobot管理2个为存满的L型的locker,需要存M号包 when SuperLockerRobot存包 then 存包失败,提示包型号错误
+- given SuperLockerRobot管理2个L型locker,S型locker的小票 when PrimaryLockerRobot取包 then 取包失败,提示票类型错误
 
 - given SuperLockerRobot管理2个未存满的L型locker,有效的小票 when SuperLockerRobot取包 then 取包成功
 - given SuperLockerRobot管理2个未存满的L型locker,用过的小票 when SuperLockerRobot取包 then 取包失败,提示用过的小票

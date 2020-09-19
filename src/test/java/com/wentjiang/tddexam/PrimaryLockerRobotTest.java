@@ -87,6 +87,4 @@ public class PrimaryLockerRobotTest {
         Assertions.assertThrows(TicketTypeNotMatchException.class, () -> primaryLockerRobot.takeOutBag(new Ticket(BagType.S)));
     }
 
-
-
 }
