@@ -57,4 +57,14 @@ public class LockerRobotManagerTest {
         Assertions.assertEquals(bag,lockerRobotManager.takeOutBag(ticket));
     }
 
+    @Test
+    public void should_take_out_success_when_manager_take_out_bag_given_LockerRobotManager_valid_L_ticket(){
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(LockerTestUtil.getLocker(10, 5, BagType.S),
+                new PrimaryLockerRobot(Collections.singletonList(LockerTestUtil.getLocker(10, 5, BagType.M))),
+                new SuperLockerRobot(Collections.singletonList(LockerTestUtil.getLocker(10, 5, BagType.L))));
+        Bag bag = new Bag(BagType.L);
+        Ticket ticket = lockerRobotManager.storeBag(bag);
+        Assertions.assertEquals(bag,lockerRobotManager.takeOutBag(ticket));
+    }
+
 }

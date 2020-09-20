@@ -3,10 +3,12 @@ package com.wentjiang.tddexam;
 public class LockerRobotManager {
     private final Locker locker;
     private final PrimaryLockerRobot primaryLockerRobot;
+    private final SuperLockerRobot superLockerRobot;
 
     public LockerRobotManager(Locker locker, PrimaryLockerRobot primaryLockerRobot, SuperLockerRobot superLockerRobot) {
         this.locker = locker;
         this.primaryLockerRobot = primaryLockerRobot;
+        this.superLockerRobot = superLockerRobot;
     }
 
     public Ticket storeBag(Bag bag) {
@@ -18,6 +20,8 @@ public class LockerRobotManager {
             case M:
                 ticket = primaryLockerRobot.storeBag(bag);
                 break;
+            case L:
+                ticket = superLockerRobot.storeBag(bag);
             default:
         }
         return ticket;
@@ -31,6 +35,9 @@ public class LockerRobotManager {
                 break;
             case M:
                 bag = primaryLockerRobot.takeOutBag(ticket);
+                break;
+            case L:
+                bag = superLockerRobot.takeOutBag(ticket);
                 break;
             default:
         }
