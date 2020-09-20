@@ -4,10 +4,16 @@ import com.wentjiang.tddexam.exception.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class SuperLockerRobotTest {
+
+    @Test
+    public void should_remind_at_last_have_one_locker_when_init_robot_given_SuperLockerRobot() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new SuperLockerRobot(new ArrayList<>()));
+    }
 
     @Test
     public void should_store_bag_success_and_return_ticket_when_SuperLockerRobot_store_bag_given_SuperLockerRobot_manage_one_not_full_L_locker() {

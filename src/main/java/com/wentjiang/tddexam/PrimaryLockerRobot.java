@@ -13,6 +13,9 @@ public class PrimaryLockerRobot {
     private final List<Locker> lockers;
 
     public PrimaryLockerRobot(List<Locker> lockers) {
+        if (lockers.size() <= 0){
+            throw new IllegalArgumentException("at last one locker");
+        }
         if (lockers.stream().anyMatch(locker -> locker.getStoreBagType() != BagType.M)) {
             throw new LockerTypeNotMatchException();
         }

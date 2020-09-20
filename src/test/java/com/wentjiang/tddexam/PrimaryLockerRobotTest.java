@@ -4,10 +4,16 @@ import com.wentjiang.tddexam.exception.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class PrimaryLockerRobotTest {
+
+    @Test
+    public void should_remind_at_last_have_one_locker_when_init_robot_given_PrimaryLockerRobot() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new PrimaryLockerRobot(new ArrayList<>()));
+    }
 
     @Test
     public void should_return_PrimaryLockerRobot_when_generate_PrimaryLockerRobot_given_M_locker() {
