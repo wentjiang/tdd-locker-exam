@@ -1,9 +1,6 @@
 package com.wentjiang.tddexam;
 
-import com.wentjiang.tddexam.exception.BadTicketException;
-import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
-import com.wentjiang.tddexam.exception.CapacityFullException;
-import com.wentjiang.tddexam.exception.TicketUsedException;
+import com.wentjiang.tddexam.exception.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -44,6 +41,14 @@ public class SuperLockerRobotTest {
     }
 
     @Test
+    public void should_take_out_fail_when_take_out_given_superLockerRobot_manager_two_not_full_locker_S_ticket() {
+        Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.L);
+        Locker secondLocker = LockerTestUtil.getLocker(10, 3, BagType.L);
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        Assertions.assertThrows(TicketTypeNotMatchException.class, () -> superLockerRobot.takeOutBag(new Ticket(BagType.S)));
+    }
+
+    @Test
     public void should_take_out_success_when_take_out_given_superLockerRobot_manager_two_not_full_locker() {
         Locker firstLocker = LockerTestUtil.getLocker(10, 5, BagType.L);
         Locker secondLocker = LockerTestUtil.getLocker(10, 3, BagType.L);
@@ -72,6 +77,5 @@ public class SuperLockerRobotTest {
         Ticket badTicket = new Ticket(BagType.L);
         Assertions.assertThrows(BadTicketException.class, () -> superLockerRobot.takeOutBag(badTicket));
     }
-//- given SuperLockerRobot管理2个未存满的L型locker,无效的小票 when SuperLockerRobot取包 then 取包失败,提示无效的小票
 
 }
