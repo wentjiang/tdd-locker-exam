@@ -17,6 +17,9 @@ public class SuperLockerRobot {
         if (lockers.size() <= 0) {
             throw new IllegalArgumentException("at last one locker");
         }
+        if (lockers.stream().anyMatch(locker -> locker.getStoreBagType() != BagType.L)) {
+            throw new LockerTypeNotMatchException();
+        }
         this.lockers = lockers;
     }
 
