@@ -1,6 +1,7 @@
 package com.wentjiang.tddexam;
 
 import com.wentjiang.tddexam.exception.BadTicketException;
+import com.wentjiang.tddexam.exception.TicketUsedException;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -78,4 +79,13 @@ public class LockerRobotManagerTest {
         Assertions.assertThrows(BadTicketException.class, () -> lockerRobotManager.takeOutBag(badTicket));
     }
 
+    @Test
+    public void should_take_out_fail_remind_used_ticket_when_take_out_given_LockerRobotManager_used_ticket() {
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(LockerTestUtil.getLocker(10, 5, BagType.S),
+                new PrimaryLockerRobot(Collections.singletonList(LockerTestUtil.getLocker(10, 5, BagType.M))),
+                new SuperLockerRobot(Collections.singletonList(LockerTestUtil.getLocker(10, 5, BagType.L))));
+        Ticket ticket = lockerRobotManager.storeBag(new Bag(BagType.L));
+        lockerRobotManager.takeOutBag(ticket);
+        Assertions.assertThrows(TicketUsedException.class, () -> lockerRobotManager.takeOutBag(ticket));
+    }
 }
