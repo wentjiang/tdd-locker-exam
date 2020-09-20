@@ -2,7 +2,6 @@ package com.wentjiang.tddexam;
 
 import com.wentjiang.tddexam.exception.BadTicketException;
 import com.wentjiang.tddexam.exception.BagTypeNotMatchException;
-import com.wentjiang.tddexam.exception.CapacityFullException;
 import com.wentjiang.tddexam.exception.LockerTypeNotMatchException;
 
 import java.util.Comparator;
